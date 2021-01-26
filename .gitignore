@@ -1,3 +1,7 @@
+# Hidden system files
+*.ini
+.DStore
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
