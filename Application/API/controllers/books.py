@@ -26,5 +26,5 @@ async def register_book(isbn_10: str):
     ol_work_id = re.findall(
         r'/works/([\w|\d]+)', res['works'][0]['key'])[0]
     title = res['title']
-    book = Book(ol_work_id, isbn_10, title)
+    book = Book(ol_work_id=ol_work_id, isbn_10=isbn_10, title=title)
     book.save()

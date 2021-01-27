@@ -1,8 +1,8 @@
-from mongoengine import (Document, StringField,
+from mongoengine import (Document, StringField, EmbeddedDocument,
                          EmbeddedDocumentListField, IntField, ObjectIdField)
 
 
-class User_Review(Document):
+class User_Review(EmbeddedDocument):
     """
     Defines the document type used to store user reviews in the review field of
     book documents.
