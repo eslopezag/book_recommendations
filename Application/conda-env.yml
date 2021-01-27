@@ -10,4 +10,6 @@ dependencies:
   - mongoengine=0.22.1
   - uvicorn=0.13.3
   - fastapi=0.63.0
+  - python-multipart=0.0.5
+  - requests=2.25.1
 prefix: /anaconda3/envs/books_mongo
