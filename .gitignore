@@ -1,6 +1,12 @@
+# Data
+*.csv
+
 # Hidden system files
 *.ini
 .DStore
+
+# VS Code
+.vscode/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
