@@ -1,4 +1,3 @@
-  
 # Conda environment that must be recreated in the Docker container.
 # Replaces the typical `requirements.txt` file that is used with
 # pip-managed environments.

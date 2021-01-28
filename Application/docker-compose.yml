@@ -1,7 +1,11 @@
 services:
   api:
     build: ./API
+    volumes:
+      - ./API:/api
     ports:
       - "3000:3000"
   mongo:
     image: "mongo:4.2.12-bionic"
+    ports:
+      - "27017:27017"
