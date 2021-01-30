@@ -22,19 +22,6 @@ async def login(username: str, password: str):
         pass
 
 
-# async def list_users():
-#     return {
-#         'user_list': [
-#             {
-#                 'id': str(u.id),
-#                 'username': u.username,
-#                 'hashed_password': u.hashed_password
-#             }
-#             for u in User.objects
-#         ]
-#     }
-
-
 async def list_users():
     return [
         {
