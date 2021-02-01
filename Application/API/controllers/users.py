@@ -1,33 +1,38 @@
 from mongoengine import connect
-import hashlib
+from passlib.context import CryptContext
 
 from models.users import User
 
 
 connect(db='book_rec', host='mongo', port=27017)
 
+pwd_ctxt = CryptContext(
+    schemes=['bcrypt'],
+    deprecated='auto',
+    bcrypt__rounds=13
+)
+
 
 async def create_user(username: str, password: str):
     assert 6 <= len(password) <= 20, \
         'Password should be between 6 and 20 characters long'
-    hash = hashlib.sha256(password.encode())
-    user = User(username=username, hashed_password=hash.hexdigest())
+    hash = pwd_ctxt.hash(password)
+    user = User(username=username, hashed_password=hash)
     user.save()
 
 
 async def login(username: str, password: str):
-    hash = hashlib.sha256(password.encode())
     user = await User.get(username=username)
-    if user.hashed_password == hash.hexdigest():
+    if pwd_ctxt.verify(password, user.hashed_password):
         pass
 
 
 async def list_users():
     return [
         {
-            'id': str(u.id),
-            'username': u.username,
-            'hashed_password': u.hashed_password
+            'id': str(user.id),
+            'username': user.username,
+            'hashed_password': user.hashed_password
         }
-        for u in User.objects
+        for user in User.objects
     ]

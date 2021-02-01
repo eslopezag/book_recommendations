@@ -14,6 +14,10 @@ class Book_Review(EmbeddedDocument):
 
 
 class User(Document):
-    username = StringField(required=True, max_length=20, unique=True)
+    username = StringField(required=True,
+                           min_length=3,
+                           max_length=20,
+                           unique=True
+                           )
     hashed_password = StringField(required=True, min_length=64, max_length=64)
     reviews = EmbeddedDocumentListField(Book_Review)
