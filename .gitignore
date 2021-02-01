@@ -1,3 +1,6 @@
+# Secret configurations
+secrets.*
+
 # Data
 *.csv
 

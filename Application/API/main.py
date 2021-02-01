@@ -32,4 +32,9 @@ app.add_middleware(
 if __name__ == '__main__':
     import uvicorn
 
+    from configparser import ConfigParser
+    config = ConfigParser()
+    config.read('/run/secrets/secrets.cfg')
+    print(config['JWT']['SECRET_KEY'])
+
     uvicorn.run("main:app", host='0.0.0.0', port=3000, reload=True)
