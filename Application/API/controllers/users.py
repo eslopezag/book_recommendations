@@ -1,8 +1,14 @@
 from mongoengine import connect
 from passlib.context import CryptContext
+from configparser import ConfigParser
 
 from models.users import User
 
+# Read the secret configuration file and obtain the secret key to sign the
+# JSON web tokens:
+config = ConfigParser()
+config.read('/secrets/config.cfg')
+JWT_SECRET = config['JWT']['SECRET_KEY']
 
 connect(db='book_rec', host='mongo', port=27017)
 

@@ -1,6 +1,3 @@
-secrets:
-  config:
-    file: ./secrets.cfg
 services:
   api:
     build: ./API
@@ -9,8 +6,13 @@ services:
     ports:
       - "3000:3000"
     secrets:
-      - config
+      - source: config
+        target: /secrets/config.cfg
   mongo:
     image: "mongo:4.2.12-bionic"
     ports:
       - "27017:27017"
+
+secrets:
+  config:
+    file: ./secrets.cfg

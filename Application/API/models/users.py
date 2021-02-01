@@ -19,5 +19,5 @@ class User(Document):
                            max_length=20,
                            unique=True
                            )
-    hashed_password = StringField(required=True, min_length=64, max_length=64)
+    hashed_password = StringField(required=True, min_length=60, max_length=60)
     reviews = EmbeddedDocumentListField(Book_Review)
