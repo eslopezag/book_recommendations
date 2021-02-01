@@ -3,7 +3,6 @@
 
 # Hidden system files
 *.ini
-.DStore
 .DS_Store
 
 # VS Code
