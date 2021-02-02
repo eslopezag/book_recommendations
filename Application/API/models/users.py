@@ -21,7 +21,7 @@ class User(Document):
                            )
     hashed_password = StringField(required=True, min_length=60, max_length=60)
     reviews = EmbeddedDocumentListField(Book_Review)
-    premissions = StringField(
+    permissions = StringField(
         required=True,
         choices=['admin', 'standard'],
         default='standard')
