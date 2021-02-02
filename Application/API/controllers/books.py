@@ -4,7 +4,7 @@ import requests
 import re
 
 from models.books import Book, User_Review
-from models.users import User, Book_Review
+from models.users import Book_Review
 
 
 connect(db='book_rec', host='mongo', port=27017)
@@ -25,8 +25,9 @@ async def register_book(
         isbn_10 (str): the book's ISBN 10.
 
         review (dict): optional user review to be registered along with the
-                       book. It must be a dictionary with keys `user_id` and
-                       `rating`.
+                       book. It must be a dictionary with keys `user` (a `User`
+                       document as used by the database) and `rating` (an
+                       integer between 0 and 10).
 
     ----------------------------------------------------------
 
@@ -40,19 +41,22 @@ async def register_book(
     title = res['title']
 
     if not review:
+        # If a review wasn't provided:
         book = Book(ol_work_id=ol_work_id, isbn_10=isbn_10, title=title)
     else:
+        # If a review was provided:
+        user = review['user']
+
         book = Book(ol_work_id=ol_work_id,
                     isbn_10=isbn_10,
                     title=title,
                     reviews=[
                         User_Review(
-                            user_id=review['user_id'],
+                            user_id=user.id,
                             rating=review['rating']
                         )
                     ])
 
-        user = User.objects.get(id=review['user_id'])
         user.reviews.append(Book_Review(ol_work_id=book.ol_work_id,
                                         isbn_10=isbn_10,
                                         rating=review['rating']))
@@ -72,9 +76,9 @@ async def register_review(
     Args:
         isbn_10 (str): the book's ISBN 10.
 
-        review (dict): optional user review to be registered along with the
-                       book. It must be a dictionary with keys `user_id` and
-                       `rating`.
+        review (dict): user review to be registered. It must be a dictionary
+                       with keys `user` (a `User` document as used by the
+                       database) and `rating` (an integer between 0 and 10).
 
     ----------------------------------------------------------
 
@@ -90,12 +94,14 @@ async def register_review(
         await register_book(isbn_10, review)
     else:
         # If the book is in the database:
-        book.reviews.append(User_Review(user_id=review['user_id'],
-                                        rating=review['rating']))
-        book.save()
+        book = book[0]
 
-        user = User.objects.get(id=review['user_id'])
+        user = review['user']
         user.reviews.append(Book_Review(ol_work_id=book.ol_work_id,
                                         isbn_10=isbn_10,
                                         rating=review['rating']))
         user.save()
+
+        book.reviews.append(User_Review(user_id=user.id,
+                                        rating=review['rating']))
+        book.save()

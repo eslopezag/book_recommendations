@@ -16,7 +16,6 @@ class Book(Document):
     ol_work_id = StringField(
         required=True,
         min_length=3,
-        unique=True,
         primary_key=True
     )
     isbn_10 = StringField(

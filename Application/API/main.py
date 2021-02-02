@@ -3,10 +3,11 @@ from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.middleware.cors import CORSMiddleware
 
-from routers import users
+from routers import users, books
 
 app = FastAPI(title="Book Recommendations")
 app.include_router(users.router)
+app.include_router(books.router)
 
 # templates = Jinja2Templates(directory="templates")
 
