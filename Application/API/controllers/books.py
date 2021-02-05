@@ -189,7 +189,7 @@ async def list_books(user: User):
     -----------------------------------------------------------------------
 
     Returns:
-        user_list (List[dict]): list of user objects.
+        book_list (List[dict]): list of book objects.
     """
 
     if user.permissions == 'admin':
