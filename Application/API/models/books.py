@@ -1,4 +1,4 @@
-from mongoengine import (Document, StringField, EmbeddedDocument,
+from mongoengine import (Document, StringField, EmbeddedDocument, ListField,
                          EmbeddedDocumentListField, IntField, ObjectIdField)
 
 
@@ -18,11 +18,11 @@ class Book(Document):
         min_length=3,
         primary_key=True
     )
-    isbn_10 = StringField(
-        required=True,
-        min_length=10,
-        max_length=10,
-        unique=True
+    isbn_10_list = ListField(
+        StringField(
+            min_length=10,
+            max_length=10
+        )
     )
     title = StringField(required=True)
     reviews = EmbeddedDocumentListField(User_Review)

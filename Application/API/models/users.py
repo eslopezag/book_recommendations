@@ -1,3 +1,4 @@
+from pydantic import BaseModel
 from mongoengine import (Document, StringField,
                          IntField, EmbeddedDocument, EmbeddedDocumentListField)
 
@@ -9,7 +10,6 @@ class Book_Review(EmbeddedDocument):
     """
 
     ol_work_id = StringField(required=True, min_length=3)
-    isbn_10 = StringField(required=True, min_length=10, max_length=10)
     rating = IntField(required=True, min_value=0, max_value=10)
 
 
@@ -25,3 +25,13 @@ class User(Document):
         required=True,
         choices=['admin', 'standard'],
         default='standard')
+
+
+class Token(BaseModel):
+    """
+    Defines the token class used as the response model in OAuth2 bearer token
+    authentication.
+    """
+
+    access_token: str
+    token_type: str

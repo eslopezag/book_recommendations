@@ -2,9 +2,8 @@ from fastapi import APIRouter, Depends, Form
 from fastapi.responses import JSONResponse
 from fastapi.security import OAuth2PasswordRequestForm
 
-from models.users import User
+from models.users import User, Token
 from controllers import users
-from models.miscellaneous import Token
 
 router = APIRouter(prefix='/users', tags=['users'])
 
