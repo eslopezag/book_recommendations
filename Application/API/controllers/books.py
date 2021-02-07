@@ -198,6 +198,14 @@ async def list_books(user: User):
             {
                 'ol_work_id': str(book.id),
                 'title': book.title,
+                'isbn_10_list': book.isbn_10_list,
+                'reviews': [
+                    {
+                        'user_id': str(rev.user_id),
+                        'rating': rev.rating
+                    }
+                    for rev in book.reviews
+                ],
                 'avg_rating': book_avg_rating(book)
             }
             for book in Book.objects
