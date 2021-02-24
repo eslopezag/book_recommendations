@@ -1,0 +1,2 @@
+numpy=1.20.1
+mongoengine=0.22.1
