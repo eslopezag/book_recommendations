@@ -6,6 +6,6 @@ COPY . .
 # Make `bash` the detault shell:
 SHELL ["/bin/bash", "-c"]
 
-RUN conda install -c confa-forge --file requirements.txt
+RUN conda install -c conda-forge --file requirements.txt
 
 CMD . ./run.sh
